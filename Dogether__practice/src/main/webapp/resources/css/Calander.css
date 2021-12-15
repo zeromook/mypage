@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
-htmp,body{
+/* htmp,body{
 	margin: 0;
 	padding: 0;
-}
+} */
 
  #totalwrap{
  	min-height: 100vh;
@@ -186,8 +186,21 @@ nav {
  	float: right;
  }
  
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  /*달력----------------------------------------------------------------*/
-#cal{
+/* #cal{
 	width: 40%;
 	margin: 130px auto;
 }
@@ -280,9 +293,9 @@ nav {
   background: #f5f5f5;
   color: #666;
 }
-/* ============================
+============================
                 Mobile Responsiveness
-   ============================*/
+   ============================
 @media (max-width: 768px) {
   #calendar .weekdays, #calendar .other-month {
     display: none;
@@ -297,4 +310,4 @@ nav {
   #calendar .date {
     float: none;
   }
-}
+} */

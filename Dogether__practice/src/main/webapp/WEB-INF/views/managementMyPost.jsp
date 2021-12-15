@@ -42,11 +42,11 @@
 
  <div id="categori">
 	<ul>
-      <li><a class="active" href="Mypage">마이페이지</a></li>
-      <li><a href="#n">런닝구 현황</a></li>
-      <li><a href="#">내 정보 수정</a></li>
-      <li><a href="#">내 글 관리</a></li>
-      <li><a href="#">구매 목록</a></li>
+      <li><a class="active" href="mypage.do">마이페이지</a></li>
+      <li><a href="runninggustatus.do">런닝구 현황</a></li>
+      <li><a href="updatemyinfo.do">내 정보 수정</a></li>
+      <li><a href="managementmypost.do">내 글 관리</a></li>
+      <li><a href="purchase list.do">구매 목록</a></li>
     </ul>
 </div> 
 </div>
@@ -313,10 +313,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
-    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="./resources/js/vendor/bootstrap.min.js"></script>
     
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <script src="./resources/js/plugins.js"></script>
+    <script src="./resources/js/main.js"></script>
 	
 </body>
 </html>

@@ -192,7 +192,7 @@
                       <a href="#">쇼핑몰</a>
                   </li>
                   <li>
-                      <a href="Mypage">마이페이지</a>
+                      <a href="myPage.do">마이페이지</a>
                   </li>
                   
               </ul>

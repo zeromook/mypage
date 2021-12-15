@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dogether.domain.BoardVO;
@@ -26,8 +27,8 @@ public class testController {
 		m.addAttribute("serverTime",new Date());
 	}
 	
-	@RequestMapping("Mypage")
-	public void gomypage() {
-		
+	@RequestMapping("{step}.do")
+	public String userJoin(@PathVariable String step) {
+		return step;
 	}
 }
