@@ -1,27 +1,28 @@
 package com.dogether.domain;
 
 public class Shopping_cartVO {
-	private String MemberID;
-	private String ProductID;
-	private int ProductQuantity;
-	
+	private String memberID;
+	private String productID;
+	private int productQuantity;
 	public String getMemberID() {
-		return MemberID;
+		return memberID;
 	}
 	public void setMemberID(String memberID) {
-		MemberID = memberID;
+		this.memberID = memberID;
 	}
 	public String getProductID() {
-		return ProductID;
+		return productID;
 	}
 	public void setProductID(String productID) {
-		ProductID = productID;
+		this.productID = productID;
 	}
 	public int getProductQuantity() {
-		return ProductQuantity;
+		return productQuantity;
 	}
 	public void setProductQuantity(int productQuantity) {
-		ProductQuantity = productQuantity;
+		this.productQuantity = productQuantity;
 	}
+	
+	
 	
 }

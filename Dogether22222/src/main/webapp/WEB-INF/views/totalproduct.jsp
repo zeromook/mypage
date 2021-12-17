@@ -90,6 +90,7 @@
                 <h2 class="module-title font-alt">DOGETHER PRODUCTS</h2>
                 <div class="module-subtitle font-serif">인기상품 특가상품을 만나보세요.</div>
                 <a class="section-scroll btn btn-border-w btn-round" href="shoppingmall.do">Home</a>
+                <a class="section-scroll btn btn-border-w btn-round" href="shoppingCart.do">내 장바구니</a>
               </div>
             </div>
           </div>

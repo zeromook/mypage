@@ -1,14 +1,21 @@
 package com.dogether.controller.shoppingmall;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dogether.domain.MemberVO;
 import com.dogether.domain.ProductsVO;
+import com.dogether.domain.Shopping_cartVO;
 import com.dogether.service.ProductService;
 
 @Controller
@@ -26,9 +33,56 @@ public class ShoppingMallController {
 		model.addAttribute("productList",list);
 	}
 	
-	
+	//상품 상세페이지 들어가자잉
 	@RequestMapping("detailProduct.do")
 	public void detailProduct(ProductsVO vo,Model m) {
-		//ProductsVO pv = productService.
+		System.out.println("상품 상세페이지로 이동합니다----------");
+		ProductsVO pv = productService.detailProduct(vo);
+		
+		m.addAttribute("product",pv);
 	}
+	
+	//장바구니 추가하기
+	@PostMapping(value="shoppingCartInsert.do",produces="application/text; charset=UTF-8")
+	@ResponseBody
+	public String insertCart(Shopping_cartVO vo,HttpSession session) {
+		System.out.println("장바구니에 추가를 시작합니다.----------");
+		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
+		vo.setMemberID(session.getAttribute("memberID").toString());//멤버아이디도 같이 보내야함으로 vo에 set을 하고 보냄
+		productService.insertIntoCart(vo);
+		return "장바구니에 담기완료!!";
+	}
+
+	
+	//장바구니 삭제하기
+	@PostMapping(value="deletefromjanbaguni.do",produces="application/text; charset=UTF-8")
+	@ResponseBody
+	public String deleteCart(Shopping_cartVO vo,HttpSession session) {
+		System.out.println("장바구니에서 삭제를 시작합니다.----------");
+		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
+		vo.setMemberID(session.getAttribute("memberID").toString());//멤버아이디도 같이 보내야함으로 vo에 set을 하고 보냄
+		System.out.println(vo.getProductID()+"보내기 전-------------");
+		System.out.println(vo.getMemberID()+"보내기 전-------------");
+		int a = productService.deleteFromCart(vo);
+		System.out.println(vo.getProductID()+"보낸후-------------");
+		System.out.println(vo.getMemberID()+"보낸후-------------");
+		System.out.println(a+"행 삭제완료");
+		return "삭제완료!!";
+	}
+	
+	//장바구니 목록 가져오기
+	@RequestMapping("shoppingCart.do")
+	public void getShoppingCartList(MemberVO vo,HttpSession session,Model m) {
+		System.out.println("장바구니 목록을 불러옵니다.");
+		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
+		vo.setMemberID(session.getAttribute("memberID").toString());
+		List<HashMap<String,String>> list = productService.getShoppingCartList(vo);
+		for(HashMap i : list) {
+			System.out.println(i);
+		}
+		m.addAttribute("jangbaguni",list);
+	}
+	
+	
+	
 }

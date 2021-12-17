@@ -1,26 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>DOGETHER</title>
-    
-<link rel="stylesheet" href="./resources/css/templatemo-style.css">
-<link rel="stylesheet" href="./resources/css/Calander.css">
-<script src="./resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="./resources/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
-<script src="./resources/js/vendor/bootstrap.min.js"></script>
-<script src="./resources/js/plugins.js"></script>
-<script src="./resources/js/main.js"></script>
-<script src="./resources/img/shoppingmall/js/submit.js"></script>
-    <!--  
-    Favicons
+    <!--
+    Document Title
     =============================================
     -->
+    <title>DOGETHER</title>
+   
+	<link rel="stylesheet" href="./resources/css/templatemo-style.css">
+	<link rel="stylesheet" href="./resources/css/Calander.css">
+	<script src="./resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="./resources/js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+	<script src="./resources/js/vendor/bootstrap.min.js"></script>
+	<script src="./resources/js/plugins.js"></script>
+	<script src="./resources/js/main.js"></script>
+	<script src="./resources/img/shoppingmall/js/submit.js"></script>
+   
+   
+   
     <link rel="apple-touch-icon" sizes="57x57" href="./resources/img/shoppingmall/images/favicons/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="./resources/img/shoppingmall/images/favicons/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="./resources/img/shoppingmall/images/favicons/apple-icon-72x72.png">
@@ -37,10 +40,10 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./resources/img/shoppingmall/images/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <!--  
+    <!--
     Stylesheets
     =============================================
-    
+
     -->
     <!-- Default stylesheets-->
     <link href="./resources/img/shoppingmall/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -56,159 +59,111 @@
     <link href="./resources/img/shoppingmall/lib/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="./resources/img/shoppingmall/lib/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <link href="./resources/img/shoppingmall/lib/simple-text-rotator/simpletextrotator.css" rel="stylesheet">
+    
     <!-- Main stylesheet and color file-->
     <link href="./resources/img/shoppingmall/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="./resources/img/shoppingmall/css/colors/default.css" rel="stylesheet">
   </head>
-  
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-   
-   
     <main>
       <div class="page-loader">
-        <div class="loader">Loading...</div>
+        <div class="loader">로딩중...</div>
       </div>
-     
-	<!-- nav바---------------------------------------------------------- -->
-		<nav>
-			<div class="logo">
-				<a href="index.jsp">DO<em>GETHER</em></a>
-			</div>
-	    	<div class="menu-icon">
-	    		<span></span>
-			</div>
-		</nav>
-      <!-- nav바---------------------------------------------------------- -->
-      
-		<p id="productIDvalue" style="display:none;">${product.productID}</p>
-	
-	
+
+
       <div class="main">
         <section class="module">
           <div class="container">
             <div class="row">
-              <div class="col-sm-6 mb-sm-40"><a class="gallery" href="./resources/img/shoppingmall/images/shop/product-7.jpg">
-              						<img src="./resources/img/shoppingmall/productimgs/${product.product_realfname}" width="665" height="750" alt="상품사진"></a>
-                  
+              <div class="col-sm-6 col-sm-offset-3">
+                <h1 class="module-title font-alt">장바구니</h1>
               </div>
-              <div class="col-sm-6">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <h1 id="ProductNameName" class="product-title font-alt">${product.productName}</h1>
-                  </div>
-                </div>
-                
-                <div class="row mb-20">
-                  <div class="col-sm-12">
-                    <div class="price font-alt"><span class="amount">${product.productPrice}</span></div>
-                  </div>
-                </div>
-                <div class="row mb-20">
-                  <div class="col-sm-12">
-                    <div class="price font-alt"><span class="amount">${product.productContent}</span></div>
-                  </div>
-                </div>
-                <div class="row mb-20">
-                  <div class="col-sm-4 mb-sm-20">
-                    <input id="productCnt" class="form-control input-lg" type="number" name="coun" value="1" max="40" min="1" required="required"/>
-                  </div>
-                  <div class="col-sm-8"><button id="cartBtn" class="btn btn-lg btn-block btn-round btn-b" href="Cart">Add To Cart</button></div>
-                </div>
-                <div class="row mb-20">
+            </div>
+             <hr class="divider-w pt-20">
+             <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-striped table-border checkout-table">
+                  <tbody>
+                    <tr>
+                      <th class="hidden-xs">상품</th>
+                      <th>상품명</th>
+                      <th class="hidden-xs">가격</th>
+                      <th>수량</th>
+                      <th>총 가격</th>
+                      <th>삭제</th>
+                    </tr>
+
+					
+                    <c:forEach items="${jangbaguni}" var="cart">
+                    		<div id="ProductID" style="display:none">${cart["ProductID"]}</div>
+		                    <tr>
+		                      <td class="hidden-xs"><a href="#"><img src="./resources/img/shoppingmall/productimgs/${cart['Product_realfname']}"/></a></td>
+		                      <td>
+		                        <h5 id="productName" class="product-title font-alt">${cart["ProductName"]}</h5>
+		                      </td>
+		                      <td class="hidden-xs">
+		                        <h5 class="product-title font-alt">${cart["ProductPrice"]}₩</h5>
+		                      </td>
+		                      <td>
+		                        <input id="F" class="form-control" type="number" name="quantity" value="${cart['ProductQuantity']}" max="50" min="1"/>
+		                      </td>
+		                      <td>
+		                        <h5 id="totalPrice" class="product-title font-alt">total 가격</h5>
+		                      </td>
+		                      <td class="pr-remove"><a href="shoppingCart.do" id="removeBtn"><i class="fa fa-times" style="cursor:pointer"></i></a></td>
+		                    </tr>
+                    </c:forEach>
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-sm-3 col-sm-offset-3">
+                <div class="form-group">
+                  <button id="updateBtn" class="btn btn-block btn-round btn-d pull-right" type="submit">Update Cart</button>
                 </div>
               </div>
             </div>
-    
-    
-    
-    
+            <hr class="divider-w">
+            <div class="row mt-70">
+              <div class="col-sm-5 col-sm-offset-7">
+                <div class="shop-Cart-totalbox">
+                  <h4 class="font-alt">Cart Totals</h4>
+                  <table class="table table-striped table-border checkout-table">
+                    <tbody>
+                      <tr>
+                        <th>Cart Subtotal :</th>
+                        <td>£40.00</td>
+                      </tr>
+                      <tr>
+                        <th>Shipping Total :</th>
+                        <td>£2.00</td>
+                      </tr>
+                      <tr class="shop-Cart-totalprice">
+                        <th>Total :</th>
+                        <td>£42.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-  
-        <div class="module-small bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">About DOGETHER</h5>
-                  <p>문의사항 및 상품 QnA는 아래 연락처로 연락부탁드립니다.</p>
-                  <p>Phone: 010 - 1111 - 2222</p>Fax: +1 234 567 89 10
-                  <p>Email: <a href="#">DOGETHER@dddogether.com</a></p>
-                </div>
-              </div>
-             
-            </div>
-          </div>
-        </div>
-        <hr class="divider-d">
-              
-	      <!-- footer---------------------------------------------------------- -->
-		<footer id="footer">
-	        <div class="container-fluid">
-	            <div class="col-md-12">
-	                <p id="ff">Copyright &copy; 2018 Company Name 
-				       | Designed by TemplateMo
-				    </p>
-	            </div>
-	        </div>
-		</footer>
-		<!-- footer---------------------------------------------------------- -->
-	      
-      
-      
-      </div>
-      <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
-    </main>
-      
-      
-     
-        <div><!-- nav바 메뉴 -->
-    <section class="overlay-menu">
-      <div class="container">
-        <div class="row">
-          <div class="main-menu">
-              <ul>
-              
-                  <li>
-                      <a href="#">런닝구</a>
-                  </li>
-                  <li>
-                      <a href="#">Gym 예약할까</a>
-                  </li>
-                  <li>
-                      <a href="#">온라인 PT</a>
-                  </li>
-                  <li>
-                      <a href="#">자랑하기</a>
-                  </li>
-                  <li>
-                      <a href="#">BMI 측정가능 보건소</a>
-                  </li>
-                  <li>
-                      <a href="#">쇼핑몰</a>
-                  </li>
-              </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
-      
-      
+
+
+
+
+
       </div>
       <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
     </main>
-    <!--  
+    <!--
     JavaScripts
     =============================================
     -->
