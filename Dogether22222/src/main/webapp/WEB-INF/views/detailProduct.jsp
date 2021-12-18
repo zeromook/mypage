@@ -100,7 +100,7 @@
                 
                 <div class="row mb-20">
                   <div class="col-sm-12">
-                    <div class="price font-alt"><span class="amount">${product.productPrice}</span></div>
+                    <div class="price font-alt"><span class="amount">${product.productPrice}원</span></div>
                   </div>
                 </div>
                 <div class="row mb-20">

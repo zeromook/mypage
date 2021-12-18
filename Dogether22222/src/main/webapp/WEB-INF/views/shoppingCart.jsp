@@ -93,27 +93,30 @@
                       <th>삭제</th>
                     </tr>
 
-					
+					<c:set var="totalprice" value="0" />
                     <c:forEach items="${jangbaguni}" var="cart">
                     		<div id="ProductID" style="display:none">${cart["ProductID"]}</div>
 		                    <tr>
 		                      <td class="hidden-xs"><a href="#"><img src="./resources/img/shoppingmall/productimgs/${cart['Product_realfname']}"/></a></td>
 		                      <td>
-		                        <h5 id="productName" class="product-title font-alt">${cart["ProductName"]}</h5>
+		                        <h5 id="ProductName" class="product-title font-alt">${cart["ProductName"]}</h5>
 		                      </td>
 		                      <td class="hidden-xs">
-		                        <h5 class="product-title font-alt">${cart["ProductPrice"]}₩</h5>
+		                        <h5 id="ProductPrice" class="product-title font-alt">${cart["ProductPrice"]}₩</h5>
+		                        <c:set var="price" value="${cart['ProductPrice']}"/>
 		                      </td>
 		                      <td>
-		                        <input id="F" class="form-control" type="number" name="quantity" value="${cart['ProductQuantity']}" max="50" min="1"/>
+		                        <input id="ProductCNT" class="form-control" type="number" name="quantity" value="${cart['ProductQuantity']}" max="50" min="1"/>
+		                        <c:set var="CNT" value="${cart['ProductQuantity']}"/>
 		                      </td>
 		                      <td>
-		                        <h5 id="totalPrice" class="product-title font-alt">total 가격</h5>
+		                      
+		                        <h5 id="TotalPrice" class="product-title font-alt" >${price*CNT}₩</h5>
 		                      </td>
 		                      <td class="pr-remove"><a href="shoppingCart.do" id="removeBtn"><i class="fa fa-times" style="cursor:pointer"></i></a></td>
 		                    </tr>
+					<c:set var="totalprice" value="${totalprice + (cart['ProductPrice'] * cart['ProductQuantity']) }" />
                     </c:forEach>
-
 
                   </tbody>
                 </table>
@@ -134,21 +137,13 @@
                   <h4 class="font-alt">Cart Totals</h4>
                   <table class="table table-striped table-border checkout-table">
                     <tbody>
-                      <tr>
-                        <th>Cart Subtotal :</th>
-                        <td>£40.00</td>
-                      </tr>
-                      <tr>
-                        <th>Shipping Total :</th>
-                        <td>£2.00</td>
-                      </tr>
                       <tr class="shop-Cart-totalprice">
-                        <th>Total :</th>
-                        <td>£42.00</td>
+                        <th>총 가격 :</th>
+                        <td>${totalprice}₩</td>
                       </tr>
                     </tbody>
                   </table>
-                  <button class="btn btn-lg btn-block btn-round btn-d" type="submit">Proceed to Checkout</button>
+                  <button class="btn btn-lg btn-block btn-round btn-d" type="button" onclick="location.href='payment.do' " >계산하기</button>
                 </div>
               </div>
             </div>

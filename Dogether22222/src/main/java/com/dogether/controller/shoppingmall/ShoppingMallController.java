@@ -61,14 +61,23 @@ public class ShoppingMallController {
 		System.out.println("장바구니에서 삭제를 시작합니다.----------");
 		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
 		vo.setMemberID(session.getAttribute("memberID").toString());//멤버아이디도 같이 보내야함으로 vo에 set을 하고 보냄
-		System.out.println(vo.getProductID()+"보내기 전-------------");
-		System.out.println(vo.getMemberID()+"보내기 전-------------");
 		int a = productService.deleteFromCart(vo);
-		System.out.println(vo.getProductID()+"보낸후-------------");
-		System.out.println(vo.getMemberID()+"보낸후-------------");
-		System.out.println(a+"행 삭제완료");
-		return "삭제완료!!";
+		String returnmessage = a+"개 삭제완료!!";
+		return returnmessage;
 	}
+	
+	
+	//장바구니에서 수량 변경하기
+	/*@PostMapping(value="updateQuantity.do",produces="application/text; charset=UTF-8")
+	@ResponseBody
+	public String updateQuantity(Shopping_cartVO vo,HttpSession session) {
+		System.out.println("장바구니에서 삭제를 시작합니다.----------");
+		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
+		vo.setMemberID(session.getAttribute("memberID").toString());//멤버아이디도 같이 보내야함으로 vo에 set을 하고 보냄
+		int a = productService.updateFromCart(vo);
+		String returnmessage = "수량변경완료";
+		return returnmessage;
+	}*/
 	
 	//장바구니 목록 가져오기
 	@RequestMapping("shoppingCart.do")
@@ -77,9 +86,6 @@ public class ShoppingMallController {
 		session.setAttribute("memberID", "hong");//일단 임의로 지정한것임
 		vo.setMemberID(session.getAttribute("memberID").toString());
 		List<HashMap<String,String>> list = productService.getShoppingCartList(vo);
-		for(HashMap i : list) {
-			System.out.println(i);
-		}
 		m.addAttribute("jangbaguni",list);
 	}
 	

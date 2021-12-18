@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-
+//장바구니  추가--------------------
   $(document).on('click', '#cartBtn', function(){
 
     let Cnt = $("#productCnt").val();
@@ -15,7 +15,7 @@ $(document).ready(function(){
     		alert(Name+" "+Cnt+"건 "+result);
     	},//end success
     	error : function(err){
-    		alert(err);
+    		alert("에러발생--------------");
     	}//end error
     });//end of ajax
   })
@@ -24,47 +24,50 @@ $(document).ready(function(){
 
 
 
-
+//장바구니에서 삭제--------------------
   $(document).on('click', '#removeBtn', function(){
     let ID = $("#ProductID").text();
-    alert(ID)
+    let Name = $("#ProductName").text()
+    
     $.ajax({
     	type : 'post',
     	data : {productID : ID},
     	contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
     	url : 'deletefromjanbaguni.do',
     	success : function(result){
-    		alert(ID+" "+result);
+    		alert(Name+" "+result);
 
     	},//end success
     	error : function(err){
-    		alert("dddderrordddd");
+    		alert("에러발생--------------");
     	}//end error
     });//end of ajax
 
   })//end of click
 
-
-
+  
+  
+//장바구니에서 수량변경--------------------일단 보류-----------------
+/*
   $(document).on('click', '#updateBtn', function(){
     let CNT = $("#ProductCNT").val();
-    alert(ID)
+    let ID = $("#ProductID").text();
+    alert(CNT)
     $.ajax({
       type : 'post',
-      data : {productID : CNT},
+      data : {productQuantity : CNT,productID : ID},
       contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-      url : 'deletefromjanbaguni.do',
+      url : 'updateQuantity.do',
       success : function(result){
-        alert(ID+" "+result);
-
+        alert(result);
       },//end success
       error : function(err){
-        alert("dddderrordddd");
+        alert("에러발생--------------");
       }//end error
     });//end of ajax
 
   })//end of click
-
+*/
 
 
 
