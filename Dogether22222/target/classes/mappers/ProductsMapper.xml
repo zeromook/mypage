@@ -12,10 +12,28 @@
 	</select>
 
 
+
+	<select id="productCheck" resultType="com.dogether.domain.Shopping_cartVO" parameterType="com.dogether.domain.Shopping_cartVO">
+		select * from shopping_cart where MemberID=#{memberID} and ProductID = #{productID}
+	</select>
+
+
+
+
 	<insert id="insertIntoCart" parameterType="com.dogether.domain.ProductsVO">
 		INSERT INTO shopping_cart
 		VALUES (#{memberID},#{productID},#{productQuantity})
 	</insert>
+
+
+
+	<update id="updateQuantity" parameterType="hashmap">
+		UPDATE shopping_cart
+		SET ProductQuantity = #{productQuantity} where MemberID=#{memberID} and ProductID = #{productID}
+	</update>
+
+
+
 
 	<insert id="deleteFromCart" parameterType="com.dogether.domain.ProductsVO">
 		DELETE FROM shopping_cart
@@ -24,9 +42,9 @@
 
 
 	<select id="getShoppingCartList" resultType="hashmap" parameterType="com.dogether.domain.MemberVO">
-		select Product_realfname,ProductName,ProductPrice,sum(ProductQuantity) as ProductQuantity,ProductID
+		select Product_realfname,ProductName,ProductPrice,ProductQuantity,ProductID
 		from shopping_cart natural join products 
-		where MemberID = #{memberID} group by ProductID;
+		where MemberID = #{memberID}
 	</select>
 	
 	

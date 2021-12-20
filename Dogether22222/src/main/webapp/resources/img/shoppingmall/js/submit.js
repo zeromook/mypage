@@ -28,7 +28,7 @@ $(document).ready(function(){
   $(document).on('click', '#removeBtn', function(){
     let ID = $("#ProductID").text();
     let Name = $("#ProductName").text()
-    
+
     $.ajax({
     	type : 'post',
     	data : {productID : ID},
@@ -45,8 +45,8 @@ $(document).ready(function(){
 
   })//end of click
 
-  
-  
+
+
 //장바구니에서 수량변경--------------------일단 보류-----------------
 /*
   $(document).on('click', '#updateBtn', function(){
@@ -67,8 +67,8 @@ $(document).ready(function(){
     });//end of ajax
 
   })//end of click
-*/
 
+*/
 
 
 }); //end of ready

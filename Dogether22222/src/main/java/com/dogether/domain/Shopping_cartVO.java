@@ -1,9 +1,12 @@
 package com.dogether.domain;
 
+import java.util.List;
+
 public class Shopping_cartVO {
 	private String memberID;
 	private String productID;
 	private int productQuantity;
+		
 	public String getMemberID() {
 		return memberID;
 	}
@@ -22,7 +25,7 @@ public class Shopping_cartVO {
 	public void setProductQuantity(int productQuantity) {
 		this.productQuantity = productQuantity;
 	}
-	
+		
 	
 	
 }

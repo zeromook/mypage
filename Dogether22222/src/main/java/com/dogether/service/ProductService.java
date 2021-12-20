@@ -11,7 +11,6 @@ public interface ProductService {
 
 	//모든 상품목록 가져오기
 	List<ProductsVO> getProductsList();
-	
 	//상품상세페이지 넘길떄
 	ProductsVO detailProduct(ProductsVO vo);
 	//장바구니 추가
@@ -20,5 +19,8 @@ public interface ProductService {
 	int deleteFromCart(Shopping_cartVO vo);
 	//장바구니 목록 가져오기
 	List<HashMap<String, String>> getShoppingCartList(MemberVO vo);
-
+	//장바구니에 이미 있는지 조회
+	Shopping_cartVO productCheck(Shopping_cartVO vo);
+	//장바구니에서 수량 변경하기
+	public int updateFromCart(String productID[], int productQuantity[],String memberID);
 }

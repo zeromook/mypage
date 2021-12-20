@@ -72,7 +72,7 @@
       <!-- nav바---------------------------------------------------------- -->
 		<nav>
 			<div class="logo">
-				<a href="index.jsp">DO<em>GETHER</em></a>
+				<a href="index.do">DO<em>GETHER</em></a>
 			</div>
 	    	<div class="menu-icon">
 	    		<span></span>
@@ -153,6 +153,47 @@
       </div>
     </section>
     </div>
+        
+        
+        
+        
+        
+     
+        <div><!-- nav바 메뉴 -->
+    <section class="overlay-menu">
+      <div class="container">
+        <div class="row">
+          <div class="main-menu">
+              <ul>
+              
+                  <li>
+                      <a href="#">런닝구</a>
+                  </li>
+                  <li>
+                      <a href="#">Gym 예약할까</a>
+                  </li>
+                  <li>
+                      <a href="#">온라인 PT</a>
+                  </li>
+                  <li>
+                      <a href="#">자랑하기</a>
+                  </li>
+                  <li>
+                      <a href="#">BMI 측정가능 보건소</a>
+                  </li>
+                  <li>
+                      <a href="#">쇼핑몰</a>
+                  </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+        
+        
+        
+        
         
         
         

@@ -2,6 +2,7 @@ package com.dogether.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,29 @@ public class ProductDAOImpl implements ProductDAO {
 		return mybatis.delete("ProductsDAO.deleteFromCart",vo);
 	}
 
+	@Override
+	public Shopping_cartVO productCheck(Shopping_cartVO vo) {
+		System.out.println("productCheck실행=================");
+		return mybatis.selectOne("ProductsDAO.productCheck", vo);
+	}
+
+	@Override
+	public int updateFromCart(String productID[], int productQuantity[],String memberID) {
+		int count = 1;
+		for(int i=0;i<productID.length;i++) {
+			Map<String,Object> mp = new HashMap<>();
+			mp.put("productID", productID[i]);
+			mp.put("productQuantity", productQuantity[i]);
+			mp.put("memberID", memberID);
+			count++;
+			mybatis.update("ProductsDAO.updateQuantity",mp);
+		}
+		return count;
+	}
+
+	
+	
+	
+	
+	
 }

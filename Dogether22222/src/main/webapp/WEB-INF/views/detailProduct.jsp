@@ -17,6 +17,7 @@
 <script src="./resources/js/plugins.js"></script>
 <script src="./resources/js/main.js"></script>
 <script src="./resources/img/shoppingmall/js/submit.js"></script>
+
     <!--  
     Favicons
     =============================================
@@ -59,6 +60,8 @@
     <!-- Main stylesheet and color file-->
     <link href="./resources/img/shoppingmall/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="./resources/img/shoppingmall/css/colors/default.css" rel="stylesheet">
+        <link rel="stylesheet" href="./resources/css/templatemo-style.css">
+	<link rel="stylesheet" href="./resources/css/Calander.css">
   </head>
   
   <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">

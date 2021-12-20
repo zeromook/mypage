@@ -42,6 +42,16 @@ public class ProductServiceImpl implements ProductService {
 		return productsDAO.deleteFromCart(vo);
 	}
 
+	@Override
+	public Shopping_cartVO productCheck(Shopping_cartVO vo) {
+		return productsDAO.productCheck(vo);
+	}
+
+	@Override
+	public int updateFromCart(String productID[], int productQuantity[],String memberID) {
+		return productsDAO.updateFromCart(productID,productQuantity,memberID);
+	}
+
 
 
 }

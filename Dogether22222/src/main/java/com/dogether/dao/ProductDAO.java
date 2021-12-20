@@ -21,4 +21,8 @@ public interface ProductDAO {
 	public int deleteFromCart(Shopping_cartVO vo);
 	//장바구니목록 가져오기
 	public List<HashMap<String,String>> getShoppingCartList(MemberVO vo);
+	//장바구니에 이미 있는 상품인지 체크
+	public Shopping_cartVO productCheck(Shopping_cartVO vo);
+	//장바구니에서 수량 변경하기
+	public int updateFromCart(String productID[], int productQuantity[],String memberID);
 }
