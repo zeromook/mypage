@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dogether.dao.ProductDAO;
 import com.dogether.domain.MemberVO;
+import com.dogether.domain.OrderVO;
 import com.dogether.domain.ProductsVO;
 import com.dogether.domain.Shopping_cartVO;
 
@@ -50,6 +51,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int updateFromCart(String productID[], int productQuantity[],String memberID) {
 		return productsDAO.updateFromCart(productID,productQuantity,memberID);
+	}
+
+	@Override
+	public MemberVO showUserInfo(MemberVO vo) {
+		return productsDAO.showUserInfo(vo);
+	}
+
+	@Override
+	public int insertOrderList(List<Shopping_cartVO> vo,String OrderID) {
+		return productsDAO.insertOrderList(vo,OrderID);
+	}
+
+	@Override
+	public List<Shopping_cartVO> afterGetShoppingCartList(String memberid) {
+		return productsDAO.afterGetShoppingCartList(memberid);
 	}
 
 

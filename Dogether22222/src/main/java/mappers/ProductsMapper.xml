@@ -20,6 +20,7 @@
 
 
 
+
 	<insert id="insertIntoCart" parameterType="com.dogether.domain.ProductsVO">
 		INSERT INTO shopping_cart
 		VALUES (#{memberID},#{productID},#{productQuantity})
@@ -32,12 +33,21 @@
 		SET ProductQuantity = #{productQuantity} where MemberID=#{memberID} and ProductID = #{productID}
 	</update>
 
-
+	<select id="showUserInfo" resultType="com.dogether.domain.MemberVO" parameterType="com.dogether.domain.MemberVO" >
+		SELECT * FROM MEMBER WHERE MemberID = #{memberID}
+	</select>
 
 
 	<insert id="deleteFromCart" parameterType="com.dogether.domain.ProductsVO">
 		DELETE FROM shopping_cart
-		WHERE MemberID = #{memberID} and ProductID = #{productID}
+		<choose>
+			<when test="productID != null">
+				WHERE MemberID = #{memberID} and ProductID = #{productID}
+			</when>
+			<otherwise>
+				WHERE MemberID = #{memberID}
+			</otherwise>
+		</choose>
 	</insert>
 
 
@@ -47,5 +57,14 @@
 		where MemberID = #{memberID}
 	</select>
 	
+	
+	<select id="afterGetShoppingCartList" resultType="com.dogether.domain.Shopping_cartVO" parameterType="string">
+		select * from shopping_cart where MemberID = #{memberID}
+	</select>
+	
+	<insert id="insertOrderList" parameterType="hashmap">
+		INSERT INTO orders(OrderID,MemberID,ProductID)
+		VALUES (#{orderID},#{memberID},#{productID})
+	</insert>
 	
 </mapper>

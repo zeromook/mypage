@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.dogether.domain.MemberVO;
+import com.dogether.domain.OrderVO;
 import com.dogether.domain.ProductsVO;
 import com.dogether.domain.Shopping_cartVO;
 
 public interface ProductService {
 
+	
+	//유저의 정보를 가져오기
+	MemberVO showUserInfo(MemberVO vo);
 	//모든 상품목록 가져오기
 	List<ProductsVO> getProductsList();
 	//상품상세페이지 넘길떄
@@ -23,4 +27,8 @@ public interface ProductService {
 	Shopping_cartVO productCheck(Shopping_cartVO vo);
 	//장바구니에서 수량 변경하기
 	public int updateFromCart(String productID[], int productQuantity[],String memberID);
+	//주문완료된 상품 order에 추가하기
+	public int insertOrderList(List<Shopping_cartVO> vo,String OrderID);
+	//결제할때 장바구니에서 값 가져오기
+	public List<Shopping_cartVO> afterGetShoppingCartList(String memberid);
 }

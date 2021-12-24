@@ -25,7 +25,13 @@ $(document).ready(function(){
 
 
 //장바구니에서 삭제--------------------
+$('#removeBtn').each(function(){
+  alert($(this).html())
+})
+
+
   $(document).on('click', '#removeBtn', function(){
+    alert($(this).parents("tr").siblings("#productID").val())
     let ID = $("#ProductID").text();
     let Name = $("#ProductName").text()
 
@@ -47,28 +53,14 @@ $(document).ready(function(){
 
 
 
-//장바구니에서 수량변경--------------------일단 보류-----------------
-/*
-  $(document).on('click', '#updateBtn', function(){
-    let CNT = $("#ProductCNT").val();
-    let ID = $("#ProductID").text();
-    alert(CNT)
-    $.ajax({
-      type : 'post',
-      data : {productQuantity : CNT,productID : ID},
-      contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-      url : 'updateQuantity.do',
-      success : function(result){
-        alert(result);
-      },//end success
-      error : function(err){
-        alert("에러발생--------------");
-      }//end error
-    });//end of ajax
+	$(function() {
 
-  })//end of click
 
-*/
+		var IMP = window.IMP;
+		IMP.init("imp19194605");
+
+	})
+
 
 
 }); //end of ready

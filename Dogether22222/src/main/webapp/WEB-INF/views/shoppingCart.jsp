@@ -21,8 +21,7 @@
 <script>
 	window.jQuery
 			|| document
-					.write(
-							'<script src="./resources/js/vendor/jquery-1.11.2.min.js"><\/script>')
+					.write('<script src="./resources/js/vendor/jquery-1.11.2.min.js"><\/script>')
 </script>
 <script src="./resources/js/vendor/bootstrap.min.js"></script>
 <script src="./resources/js/plugins.js"></script>
@@ -30,9 +29,11 @@
 <script src="./resources/img/shoppingmall/js/submit.js"></script>
 <link rel="stylesheet" href="./resources/css/templatemo-style.css">
 <link rel="stylesheet" href="./resources/css/Calander.css">
-  <!-- jQuery -->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- jQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <link rel="apple-touch-icon" sizes="57x57"
 	href="./resources/img/shoppingmall/images/favicons/apple-icon-57x57.png">
@@ -110,46 +111,100 @@
 <link id="color-scheme"
 	href="./resources/img/shoppingmall/css/colors/default.css"
 	rel="stylesheet">
-	
-	
-	<script>    var IMP = window.IMP; 
-    			IMP.init("iamport");
-	alert(${totalprice})
+<c:set var="nameCount" value="0" />
 
-    function requestPay() {
-     // IMP.request_pay(param, callback) 
-      IMP.request_pay({ // param
-          pg: "kakao",
-          pay_method: "card",
-          merchant_uid: "ORD20180131-0000331",
-          name: "노르웨이 회전 의자",
-          amount: $("TP").text(),
-          buyer_email: "gildong@gmail.com",
-          buyer_name: "홍길동",
-          buyer_tel: "010-4242-4242",
-          buyer_addr: "서울특별시 강남구 신사동",
-          buyer_postcode: "01181"
-      }, function (rsp) { // callback
-          if (rsp.success) {
-              // 결제 성공 시 로직,
-              alert("결제성공")
-              console.log(rsp);
-          } else {
-              // 결제 실패 시 로직,
-              console.log(rsp);
-              alert("결제실패")
-          }
-      });
-    }
-  </script>
+<script>
+	function requestPay() {
+		
+		// IMP.request_pay(param, callback) 
+		let productID = $(".ProductID").val();
+		let nameCount = $("#nameCount").text() - 1;
+		let totalPrice = parseInt($("#TP").text());
+		let productName = $(".ProductName").text();
+		let email = $("#memberemail").text();
+		let memberID = $("#memberID").text();
+		let phoneNumber = $("#memberPhoneNumber").text();
+		let basicAddress = $("#memberBasicAddress").text();
+		let ZipCode = $("#memberZipCode").text();
+		console.log(nameCount,totalPrice,productName,email,memberID,phoneNumber,basicAddress,ZipCode,productID)
+		
+		if (productName == "") {
+			alert("장바구니에 상품이 없습니다.")
+			return;
+		}
+		
+		IMP.request_pay({ // param
+			pg : "TC0ONETIME",
+			pay_method : "card",
+			//merchant_uid : "ORD20180131-0000331", 주문번호는 랜덤생성
+			name : productName + " 외 " + nameCount + "건",
+			amount : 100,//totalPrice,
+			buyer_email : email,
+			buyer_name : memberID,
+			buyer_tel : phoneNumber,
+			buyer_addr : basicAddress,
+			buyer_postcode : ZipCode},
+			function(rsp) { // callback
+			if (rsp.success) {
+				afterPaydeleteShoppingCart();
+				afterPayinsertOrders(rsp["merchant_uid"]);
+				alert("결제성공")
+				location.replace("shoppingCart.do")
+			} else {
+				alert("결제에 실패하였습니다. 다시 시도해주세요.")
+			}
+		});
+	}
+
+	
+	function afterPaydeleteShoppingCart(){
+		$.ajax({
+			type : 'post',
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			url : 'deletefromjanbaguni.do',
+			success : function(result){
+				alert("장바구니에서 삭제 완료")
+			},
+			error : function(err){
+				alert("장바구니에서 삭제 에러발생")
+			}
+		})//end of ajax
+	}//end of afterPaydeleteShoppingCart
+	
+	function afterPayinsertOrders(orderid){
+		$.ajax({
+			type : 'post',
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			data : {OrderID : orderid},
+			url : 'insertOrderList.do',
+			success : function(result){
+				alert(result+"개 품목 구매완료!")
+			},
+			error : function(){
+				alert("Order테이블에 추가하기 에러발생")
+			}
+		})//end of ajax
+		
+	}//end of afterPayinsertOrders
 	
 	
 	
 	
+	$(function() {
+		var IMP = window.IMP;
+		IMP.init("imp19194605");
+
+	})
 	
-	
-	
-	
+</script>
+
+
+
+
+
+
+
+
 </head>
 <body data-spy="scroll" data-target=".onpage-navigation"
 	data-offset="60">
@@ -160,21 +215,21 @@
 
 
 
-	  <!-- nav바---------------------------------------------------------- -->
+		<!-- nav바---------------------------------------------------------- -->
 		<nav>
 			<div class="logo">
 				<a href="index.do">DO<em>GETHER</em></a>
 			</div>
-	    	<div class="menu-icon">
-	    		<span></span>
+			<div class="menu-icon">
+				<span></span>
 			</div>
 		</nav>
-      <!-- nav바---------------------------------------------------------- -->
+		<!-- nav바---------------------------------------------------------- -->
 
 
 
 
-		<form action="updateQuantity.do" method="post">
+		<form action="updateQuantity.do" method="post" id="formform">
 			<div class="main">
 				<section class="module">
 					<div class="container">
@@ -182,7 +237,8 @@
 							<div class="col-sm-6 col-sm-offset-3">
 								<h1 class="module-title font-alt">장바구니</h1>
 							</div>
-								<a id="Homebtn" class="section-scroll btn btn-border-w btn-round" href="shoppingmall.do">Home</a>
+							<a id="Homebtn" class="section-scroll btn btn-border-w btn-round"
+								href="shoppingmall.do">Home</a>
 						</div>
 						<hr class="divider-w pt-20">
 						<div class="row">
@@ -200,24 +256,28 @@
 										<!-- form 우너래자리 -->
 										<c:set var="totalprice" value="0" />
 										<c:forEach items="${jangbaguni}" var="cart">
-											<input type='hidden' name='productID' value='${cart["ProductID"]}'/>
- 											<div id="ProductID" style="display: none">${cart["ProductID"]}</div>
+											<input class="productID" type='hidden' name='productID'
+												value='${cart["ProductID"]}' />
+											<div id="memberemail" style="display: none">${memberInfo.email}</div>
+											<div id="memberID" style="display: none">${memberInfo.memberID}</div>
+											<div id="memberPhoneNumber" style="display: none">${memberInfo.phoneNumber}</div>
+											<div id="memberBasicAddress" style="display: none">${memberInfo.basicAddress}</div>
+											<div id="memberZipCode" style="display: none">${memberInfo.zipCode}</div>
 											<tr>
 												<td class="hidden-xs"><a href="#"><img
 														src="./resources/img/shoppingmall/productimgs/${cart['Product_realfname']}" /></a></td>
 												<td>
-													<h5 id="ProductName" class="product-title font-alt">${cart["ProductName"]}</h5>
+													<h5 class="product-title font-alt ProductName">${cart["ProductName"]}</h5>
+													<c:set var="nameCount" value="${nameCount+1}" />
 												</td>
 												<td class="hidden-xs">
 													<h5 id="ProductPrice" class="product-title font-alt">${cart["ProductPrice"]}₩</h5>
 													<c:set var="price" value="${cart['ProductPrice']}" />
 												</td>
-												<td>
-													<input id="ProductCNT" class="form-control"
-														type="number" name="productQuantity"
-														value="${cart['ProductQuantity']}" max="20" min="1" />
-													 	<c:set var="CNT" value="${cart['ProductQuantity']}" />
-												</td>
+												<td><input id="ProductCNT" class="form-control"
+													type="number" name="productQuantity"
+													value="${cart['ProductQuantity']}" max="20" min="1" /> <c:set
+														var="CNT" value="${cart['ProductQuantity']}" /></td>
 												<td>
 													<h5 id="TotalPrice" class="product-title font-alt">${price*CNT}₩</h5>
 												</td>
@@ -228,6 +288,7 @@
 											<c:set var="totalprice"
 												value="${totalprice + (cart['ProductPrice'] * cart['ProductQuantity']) }" />
 										</c:forEach>
+										<div id="nameCount" style="display: none">${nameCount}</div>
 									</tbody>
 								</table>
 							</div>
@@ -259,7 +320,7 @@
 										</tbody>
 									</table>
 									<button class="btn btn-lg btn-block btn-round btn-d"
-										type="button"  onclick="requestPay()">계산하기</button>
+										type="button" onclick="requestPay()">계산하기</button>
 								</div>
 							</div>
 						</div>
@@ -269,66 +330,54 @@
 
 
 
-     
-        <div><!-- nav바 메뉴 -->
-    <section class="overlay-menu">
-      <div class="container">
-        <div class="row">
-          <div class="main-menu">
-              <ul>
-              
-                  <li>
-                      <a href="#">런닝구</a>
-                  </li>
-                  <li>
-                      <a href="#">Gym 예약할까</a>
-                  </li>
-                  <li>
-                      <a href="#">온라인 PT</a>
-                  </li>
-                  <li>
-                      <a href="#">자랑하기</a>
-                  </li>
-                  <li>
-                      <a href="#">BMI 측정가능 보건소</a>
-                  </li>
-                  <li>
-                      <a href="#">쇼핑몰</a>
-                  </li>
-              </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    </div>
-        
-        
-        
-        
-        
+
+				<div>
+					<!-- nav바 메뉴 -->
+					<section class="overlay-menu">
+						<div class="container">
+							<div class="row">
+								<div class="main-menu">
+									<ul>
+
+										<li><a href="#">런닝구</a></li>
+										<li><a href="#">Gym 예약할까</a></li>
+										<li><a href="#">온라인 PT</a></li>
+										<li><a href="#">자랑하기</a></li>
+										<li><a href="#">BMI 측정가능 보건소</a></li>
+										<li><a href="#">쇼핑몰</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+
+
+
+
+
 
 
 			</div>
 		</form>
-		
-		
-		
-	<!-- footer---------------------------------------------------------- -->
-	<footer id="footer" style="position:fixed">
-        <div class="container-fluid">
-            <div class="col-md-12">
-                <p id="ff">Copyright &copy; 2018 Company Name 
-			       | Designed by TemplateMo
-			    </p>
-            </div>
-        </div>
-	</footer>
-	<!-- footer---------------------------------------------------------- -->
 
 
-		
-		
-		
+
+		<!-- footer---------------------------------------------------------- -->
+		<footer id="footer" style="position: fixed">
+			<div class="container-fluid">
+				<div class="col-md-12">
+					<p id="ff">Copyright &copy; 2018 Company Name | Designed by
+						TemplateMo</p>
+				</div>
+			</div>
+		</footer>
+		<!-- footer---------------------------------------------------------- -->
+
+
+
+
+
 		<div class="scroll-up">
 			<a href="#totop"><i class="fa fa-angle-double-up"></i></a>
 		</div>

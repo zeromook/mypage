@@ -1,9 +1,7 @@
 package com.dogether.controller.shoppingmall;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -68,8 +66,7 @@ public class ShoppingMallController {
 		System.out.println("장바구니에서 삭제를 시작합니다.----------");
 		vo.setMemberID(session.getAttribute("memberID").toString());//멤버아이디도 같이 보내야함으로 vo에 set을 하고 보냄
 		int a = productService.deleteFromCart(vo);
-		String returnmessage = "삭제완료!!";
-		return returnmessage;
+		return "삭제완료!!";
 	}
 	
 	
@@ -89,10 +86,30 @@ public class ShoppingMallController {
 	@RequestMapping("shoppingCart.do")
 	public void getShoppingCartList(MemberVO vo,HttpSession session,Model m) {
 		System.out.println("장바구니 목록을 불러옵니다.");
+		session.setAttribute("memberID", "곤약맨");
 		vo.setMemberID(session.getAttribute("memberID").toString());
 		List<HashMap<String,String>> list = productService.getShoppingCartList(vo);
+		MemberVO memberInfo = productService.showUserInfo(vo);
+		m.addAttribute("memberInfo",memberInfo);
 		m.addAttribute("jangbaguni",list);
 	}
+	
+	
+	
+	
+	
+	
+	@PostMapping("insertOrderList.do")
+	@ResponseBody
+	public int insertOrderList(String memberid,String OrderID,HttpSession session) {
+		System.out.println("결제한 목록을 추가합니다");
+		memberid = session.getAttribute("memberID").toString();//vo에 멤버 아이디 추가하기
+		List<Shopping_cartVO> vo = productService.afterGetShoppingCartList(memberid);//vo에 일단 각각 멤버아이디의 장바구니 리스트를 가져옴
+		int result = productService.insertOrderList(vo,OrderID);//가져온 vo형태로 order테이블에 insert하자
+		return result;
+		
+	}
+	
 	
 	
 	

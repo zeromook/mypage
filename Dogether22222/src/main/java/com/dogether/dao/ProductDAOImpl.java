@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dogether.domain.MemberVO;
+import com.dogether.domain.OrderVO;
 import com.dogether.domain.ProductsVO;
 import com.dogether.domain.Shopping_cartVO;
 @Repository("productsDAO")
@@ -65,6 +66,33 @@ public class ProductDAOImpl implements ProductDAO {
 			mybatis.update("ProductsDAO.updateQuantity",mp);
 		}
 		return count;
+	}
+
+	@Override
+	public MemberVO showUserInfo(MemberVO vo) {
+		System.out.println("showUserInfo실행==================");
+		return mybatis.selectOne("ProductsDAO.showUserInfo", vo);
+	}
+
+	@Override
+	public int insertOrderList(List<Shopping_cartVO> vo,String OrderID) {
+		System.out.println("insertOrderList실행================");
+		int count = 1;
+		for(int i=0;i<vo.size();i++) {
+			Map<String,Object> mp = new HashMap<String,Object>();
+			mp.put("orderID", OrderID);
+			mp.put("memberID", vo.get(i).getMemberID());
+			mp.put("productID", vo.get(i).getProductID());
+			mybatis.insert("ProductsDAO.insertOrderList", mp);
+			count++;
+		}
+		return count;
+	}
+
+	@Override
+	public List<Shopping_cartVO> afterGetShoppingCartList(String memberid) {
+		System.out.println("afterGetShoppingCartList실행==============");
+		return mybatis.selectList("ProductsDAO.afterGetShoppingCartList", memberid);
 	}
 
 	
